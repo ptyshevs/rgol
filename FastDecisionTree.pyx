@@ -253,7 +253,7 @@ cdef class FastDecisionTree:
         return y
         
     def predict_proba(self, X):
-        y = np.full((len(X), self.n_unique_labels), np.nan, dtype=self.labels.dtype)
+        y = np.full((len(X), self.n_unique_labels), np.nan, dtype=np.float64)
 
         mask = np.full(len(X), True)
         cur_depth = 0
@@ -267,10 +267,10 @@ cdef class FastDecisionTree:
             if not node.left:
                 cnts = np.bincount(node.left_labels, minlength=self.n_unique_labels)
                 
-                y[left_mask, :] = cnts / cnts.sum()
+                y[left_mask, :] = cnts.astype(np.float64) / cnts.sum()
             if not node.right:
                 cnts = np.bincount(node.right_labels, minlength=self.n_unique_labels)
-                y[right_mask] = cnts / cnts.sum()
+                y[right_mask] = cnts.astype(np.float64) / cnts.sum()
             if node.left:
                 queue.append((node.left, left_mask))
             if node.right:
