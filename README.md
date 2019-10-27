@@ -11,6 +11,8 @@ For comparison, Pure CNN gives 0.10904.
 ## Bonuses
 
 * Optimized code for base model (Cython)
+* Verbose mode
+* Advanced algorithm
 * CNN result in top-5 on private LB
 
 ## FAQ

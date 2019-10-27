@@ -16,7 +16,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     df = pd.read_csv(args.dataset, index_col=0)
-    sub_df = pd.read_csv(args.submission_sample, index_col=0)
+    sub_df = pd.DataFrame(index=df.index, columns=['start.' + str(_) for _ in range(1, 401)])
 
     delta = df.iloc[:, 0]
     X = df.iloc[:, 1:401].values.reshape(-1, 20, 20)
